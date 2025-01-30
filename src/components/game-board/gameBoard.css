@@ -1,0 +1,47 @@
+.gameBoard {
+    width: fit-content;
+    margin: 0 auto;
+    border: solid 2px black;
+}
+
+.row {
+    display: flex
+}
+
+.cell {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cell::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: lightblue;
+    transform: scale(0);
+    transition: transform 0.5s ease;
+}
+
+.cell::before {
+    transform: scale(var(--filling));
+}
+
+.cell img {
+    height: 40px;
+    width: 40px;
+    z-index: 1000;
+}
+
+.full {
+    background-color: #333333;
+}
+
+.disabled {
+    background-color: red;
+}

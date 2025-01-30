@@ -1,0 +1,14 @@
+=		: Vide
++		: Source
+#		: Sortie correcte
+!		: Sortie piège
+D-x		: Porte fermée
+O-x		: Porte ouverte
+S-x		: Capteur
+P-TRBL 	: Tuyaux
+
+x = un nombre entier
+T = Top
+R = Right
+B = Bottom
+L = Left

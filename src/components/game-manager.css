@@ -1,0 +1,53 @@
+.game-manager {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tools {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    padding: 2rem;
+    border: dashed 2px black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: lightyellow;
+}
+
+button, select {
+    padding: 0.5rem 1.75rem;
+    min-width: 20ch;
+}
+
+.cycleInterval {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 20ch;
+}
+
+.cycleInterval input {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    background: red;
+}
+
+.cycleInterval span {
+    position: absolute;
+    top: 0;
+}
+
+.cycleInterval span:first-of-type {
+    left: -1rem;
+}
+
+.cycleInterval span:last-of-type {
+    right: -1rem;
+}
+
+.levelManager {
+    padding: 2rem 5rem;
+}

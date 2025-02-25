@@ -20,7 +20,7 @@ const DEFAULT: {
 }
 
 const MIN_INTERVAL_VALUE:  number = 0;
-const MAX_INTERVAL_VALUE:  number = 2;
+const MAX_INTERVAL_VALUE:  number = 1;
 
 export const GameManager = () => {
     const { levels } = jsonLevels as JSONLevels;

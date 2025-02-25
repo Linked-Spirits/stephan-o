@@ -29,7 +29,7 @@ export class GameBoard {
 
         for (let i = 0; i <= rows - 1; i++) {
             for (let j = 0; j <= cols - 1; j++) {
-                newMatrix[i][j] = buildCell(matrix[i][j])
+                newMatrix[i][j] = buildCell(matrix[i][j], [i, j])
             }
         }
 
@@ -43,8 +43,6 @@ export class GameBoard {
     update(): GameBoard {
         this.gameState.newCycle();
 
-        // console.log(this.matrix)
-
         const { rows, cols } = this.matrix;
 
         const newMatrix = new Matrix<Cell>(
@@ -56,21 +54,27 @@ export class GameBoard {
                 const currentCell = this.matrix.get(i, j);
 
                 if (currentCell) {
-                    // On récupère les voisins de la cellule
-                    const neighbors = this.matrix.getNeighbors(i, j);
-
                     // On clone cette cellule pour que son prochain état
                     // n'affecte pas les autres
                     const clonedCell = currentCell.clone();
 
                     // On met la à jour la cellule clonée grâce
                     // à ses voisins et l'état global
-                    clonedCell.update(neighbors, this.gameState);
+                    clonedCell.update(this.matrix, this.gameState);
 
                     // On l'ajoute à la nouvelle matrice
                     newMatrix.set(i, j, clonedCell);
+
+                    /* if (i === 3 && j === 2) {
+                        console.log(clonedCell);
+                    }
+
+                    if (i === 3 && j === 1) {
+                        console.log(clonedCell);
+                    } */
+
                 } else {
-                    newMatrix.set(i, j, new FullCell());
+                    newMatrix.set(i, j, new FullCell([i, j]));
                 }
             }
         }

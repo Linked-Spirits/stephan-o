@@ -27,10 +27,12 @@ export const CellRenderer = ({
         customClasses,
     ].join(" ")
 
+    const title = `${cell.label} [${cell.coords[0]}, ${cell.coords[1]}] | filling: ${cell.filling}, flowSpeed: ${cell.flowSpeed}`
+
     return (
         <div
             className={classes}
-            title={cell.label}
+            title={title}
             style={customStyle}
             onClick={onClick}
         >

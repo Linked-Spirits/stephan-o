@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { Neighbors } from "@/components/game-board/matrix/Matrix.types";
 import { GameState } from "@/components/game-state/GameState";
+import { Matrix } from "../matrix/Matrix";
 
 export enum CellType {
     Full = "full",
@@ -17,6 +17,7 @@ export type CellParameters = object;
 export abstract class Cell<T extends CellParameters = CellParameters> {
     public static drainSpeed = 20;
 
+    public coords: [number, number];
     public type: CellType;
     public label: string;
     public parameters: T;
@@ -29,11 +30,13 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
     public lastUpdateCycle: number;
 
     constructor(
+        coords: [number, number],
         type: CellType,
         label: string,
         parameters: T = {} as T,
         disabled: boolean = false
     ) {
+        this.coords = coords;
         this.type = type;
         this.label = label;
         this.parameters = parameters;
@@ -56,7 +59,7 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
 
     abstract clone(): Cell<T>;
 
-    abstract update(neighbors: Neighbors<Cell>, gameState: GameState): void;
+    abstract update(matrix: Matrix<Cell>, gameState: GameState): void;
 
     abstract render({key}: {key: string}): ReactNode;
 
@@ -81,6 +84,20 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
     }
 
     setFlowSpeed(newFlowSpeedValue: number) {
+        if (newFlowSpeedValue < 0) {
+            this.flowSpeed = 0;
+        }
+
         this.flowSpeed = newFlowSpeedValue;
+    }
+
+    setFillingParents(parents: Cell[]) {
+        this.fillingParents = parents;
+    }
+
+    reset() {
+        this.setFilling(0);
+        this.setFlowSpeed(0);
+        this.setFillingParents([]);
     }
 }

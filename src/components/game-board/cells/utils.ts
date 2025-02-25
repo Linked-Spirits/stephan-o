@@ -1,3 +1,4 @@
+import { cp } from "fs";
 import { Matrix } from "../matrix/Matrix";
 import { Neighbors } from "../matrix/Matrix.types";
 import { Cell, CellType } from "./Cell";
@@ -64,7 +65,7 @@ export const updateFilling = (cell: Cell, matrix: Matrix<Cell>, currentCycle: nu
     cell.lastUpdateCycle = currentCycle;
 
     // Vérifier si un des parents est en train de se vider
-    const hasEmptyingParent = cell.fillingParents.some(parent => parent.flowSpeed < 0);
+    const hasEmptyingParent = cell.fillerParents.some(parent => parent.flowSpeed < 0);
 
     if (hasEmptyingParent) {
         // Si un parent se vide, la cellule se vide aussi
@@ -85,12 +86,12 @@ export const updateFilling = (cell: Cell, matrix: Matrix<Cell>, currentCycle: nu
 
     if (cell.flowSpeed > 0) {
         cell.setFilling(cell.filling + cell.flowSpeed);
-        cell.setFillingParents(relevantNeighbors);
+        cell.setFillerParents(relevantNeighbors);
         return;
     }
 
     cell.setFilling(cell.filling - Cell.drainSpeed);
-    cell.setFillingParents([]); // Si l'eau se vide, pas de parents */
+    cell.setFillerParents([]); // Si l'eau se vide, pas de parents */
     const [row, col] = cell.coords;
     const neighbors = matrix.getNeighbors(row, col);
 
@@ -101,8 +102,8 @@ export const updateFilling = (cell: Cell, matrix: Matrix<Cell>, currentCycle: nu
     // cell.lastUpdateCycle = currentCycle;
 
     // Si la cellule a déjà des parents, on vérifie s'ils se vident
-    if (cell.fillingParents.length > 0) {
-        const hasEmptyingParents = cell.fillingParents
+    /* if (cell.fillerParents.length > 0) {
+        const hasEmptyingParents = cell.fillerParents
             .reduce((sum, parent) => sum + matrix.get(...parent.coords).flowSpeed, 0) === 0;
 
         if (hasEmptyingParents) {
@@ -110,34 +111,34 @@ export const updateFilling = (cell: Cell, matrix: Matrix<Cell>, currentCycle: nu
 
             return;
         }
-    }
+    } */
 
-    if (row === 1 && col === 3) {
+    /* if (row === 1 && col === 3) {
         console.log(cell)
         console.log(neighbors)
         console.log("\n")
-    }
+    } */
 
-    const topNeighbor = checkTopNeighbor(neighbors);
+    /* const topNeighbor = checkTopNeighbor(neighbors);
     const leftNeighbor = checkLeftNeighbor(neighbors);
-    const rightNeighbor = checkRightNeighbor(neighbors);
+    const rightNeighbor = checkRightNeighbor(neighbors); */
 
-    const fillingParents = []
+    /* const fillerParents = []
 
     if (topNeighbor !== null) {
-        fillingParents.push(topNeighbor)
+        fillerParents.push(topNeighbor)
     }
     if (leftNeighbor !== null) {
-        fillingParents.push(leftNeighbor)
+        fillerParents.push(leftNeighbor)
     }
     if (rightNeighbor !== null) {
-        fillingParents.push(rightNeighbor)
+        fillerParents.push(rightNeighbor)
     }
 
-    cell.setFillingParents(fillingParents);
+    cell.setFillerParents(fillerParents); */
 
-    // Si on n'a toujours pas de fillingParents, on commence à vider la cellule
-    /* if (cell.fillingParents.length === 0) {
+    // Si on n'a toujours pas de fillerParents, on commence à vider la cellule
+    /* if (cell.fillerParents.length === 0) {
     cell.setFilling(cell.filling - Cell.drainSpeed);
     cell.setFilling(cell.filling - Cell.drainSpeed);
 
@@ -147,34 +148,35 @@ export const updateFilling = (cell: Cell, matrix: Matrix<Cell>, currentCycle: nu
     } */
 
     // ⚡ Mettre à jour les valeurs des parents à chaque cycle
-    const totalFlowSpeed = cell.fillingParents
+    /* const totalFlowSpeed = cell.fillerParents
         .reduce((sum, parent) => sum + matrix.get(...parent.coords).flowSpeed, 0);
     const averageFlowSpeed = totalFlowSpeed > 0
-        ? totalFlowSpeed / cell.fillingParents.length
+        ? totalFlowSpeed / cell.fillerParents.length
         : 0;
 
     cell.setFlowSpeed(averageFlowSpeed);
-    cell.setFilling(cell.filling + cell.flowSpeed);
+    cell.setFilling(cell.filling + cell.flowSpeed); */
 
 
 
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // on récupère les relevantNeighbors 
-    // si filling = 0 : on met les relevantNeighbors en fillingParents
+    // si filling = 0 : on met les relevantNeighbors en fillerParents
     // fin si
     // on calcule le totalFlowSpeed (pas de moyenne, juste une somme) 
-    // => pour ce calcul, on regarde les fillingParents
+    // => pour ce calcul, on regarde les fillerParents
     // => on récupère les flowspeed de flowSpeed des parents
     // => si cette valeur vaut 0, on check à nouveau les voisins
-    // => on refait les fillingsParents SSI leurs fillingParents sont différent de la cell courante
+    // => on refait les fillingsParents SSI leurs fillerParents sont différent de la cell courante
     // => sinon flowSpeed = 0;
     // On set les valeurs flowspeed et filling 
+    // on vide si un bottom neighbor est libéré
 
-    // MECANISME A GARDER
+    // MECANISME A GARDER ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // On vide la cellule si une cellule bottomLeft ou bottomRight se libère
     // A INSERER DANS LA FONCTION DU TOTALFLOWSPEED
-    if (cell.fillingParents.some(parent =>
+    /* if (cell.fillerParents.some(parent =>
         parent.coords[0] + 1 !== cell.coords[0]
         && !isExcludedBottomNeighbor(matrix.get(parent.coords[0] + 1, parent.coords[1]))
     )) {
@@ -182,9 +184,75 @@ export const updateFilling = (cell: Cell, matrix: Matrix<Cell>, currentCycle: nu
         cell.setFlowSpeed(cell.flowSpeed - Cell.drainSpeed);
 
         return;
-    }
+    } */
 
     // TODO :
     // - Utiliser disabled pour FullCell et DoorCell closed
     // - 
+
+    const getRelevantNeighbors = (_neighbors: Neighbors<Cell>): Cell[] => {
+        const relevantNeighbors = []
+
+        const topNeighbor = checkTopNeighbor(_neighbors);
+        const leftNeighbor = checkLeftNeighbor(_neighbors);
+        const rightNeighbor = checkRightNeighbor(_neighbors);
+
+        if (topNeighbor !== null) {
+            relevantNeighbors.push(topNeighbor)
+        }
+        if (leftNeighbor !== null) {
+            relevantNeighbors.push(leftNeighbor)
+        }
+        if (rightNeighbor !== null) {
+            relevantNeighbors.push(rightNeighbor)
+        }
+
+        return relevantNeighbors
+    }
+
+    const computeFlowSpeed = (_cell: Cell, _neighbors: Neighbors<Cell>, _matrix: Matrix<Cell>): number => {
+        const parentsFlowSpeed = _cell.fillerParents.reduce((sum, parent) => sum + _matrix.get(parent[0], parent[1]).flowSpeed, 0)
+
+        // check if there is another source
+        if (parentsFlowSpeed === 0) {
+            const relevantNeighbors = getRelevantNeighbors(_neighbors)
+                .filter(neighbor => neighbor.fillerParents.length > 1 || neighbor.fillerParents.length === 0 && neighbor.fillerParents[0] !== _cell.coords)
+
+            if (relevantNeighbors.length > 0) {
+                _cell.setFillerParents(relevantNeighbors.map(neighbor => neighbor.coords))
+
+                computeFlowSpeed(_cell, _neighbors, _matrix);
+            }
+        }
+
+        return parentsFlowSpeed;
+    }
+
+    /* const topNeighbor = checkTopNeighbor(neighbors);
+    const leftNeighbor = checkLeftNeighbor(neighbors);
+    const rightNeighbor = checkRightNeighbor(neighbors); */
+
+
+    /* if (topNeighbor !== null) {
+        relevantNeighbors.push(topNeighbor)
+    }
+    if (leftNeighbor !== null) {
+        relevantNeighbors.push(leftNeighbor)
+    }
+    if (rightNeighbor !== null) {
+        relevantNeighbors.push(rightNeighbor)
+    } */
+
+    const relevantNeighbors = getRelevantNeighbors(neighbors)
+
+    if (cell.isEmpty) {
+        cell.setFillerParents(relevantNeighbors.map(neighbor => neighbor.coords))
+    }
+
+    const newFlowSpeed = computeFlowSpeed(cell, neighbors, matrix);
+
+    cell.setFlowSpeed(newFlowSpeed);
+    cell.setFilling(cell.filling + (
+        cell.flowSpeed === 0 ? Cell.drainSpeed : cell.flowSpeed
+    ));
 }

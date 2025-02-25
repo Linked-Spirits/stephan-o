@@ -15,7 +15,7 @@ export enum CellType {
 export type CellParameters = object;
 
 export abstract class Cell<T extends CellParameters = CellParameters> {
-    public static drainSpeed = 20;
+    public static drainSpeed = -20;
 
     public coords: [number, number];
     public type: CellType;
@@ -24,7 +24,7 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
     public disabled: boolean;
 
     public filling: number;
-    public fillingParents: Cell[];
+    public fillerParents: [number, number][];
     public flowSpeed: number;
 
     public lastUpdateCycle: number;
@@ -43,7 +43,7 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
         this.disabled = disabled;
 
         this.filling = 0;
-        this.fillingParents = [];
+        this.fillerParents = [];
         this.flowSpeed = 0;
 
         this.lastUpdateCycle = 0;
@@ -66,7 +66,7 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
     protected cloneProperties<T extends Cell>(clonedCell: T): T {
         clonedCell.filling = this.filling;
         clonedCell.flowSpeed = this.flowSpeed;
-        clonedCell.fillingParents = [...this.fillingParents];
+        clonedCell.fillerParents = [...this.fillerParents];
         clonedCell.parameters = { ...this.parameters };
         clonedCell.disabled = this.disabled;
 
@@ -91,13 +91,13 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
         this.flowSpeed = newFlowSpeedValue;
     }
 
-    setFillingParents(parents: Cell[]) {
-        this.fillingParents = parents;
+    setFillerParents(parents: [number, number][]) {
+        this.fillerParents = parents;
     }
 
     reset() {
         this.setFilling(0);
         this.setFlowSpeed(0);
-        this.setFillingParents([]);
+        this.setFillerParents([]);
     }
 }

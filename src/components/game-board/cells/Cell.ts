@@ -86,9 +86,11 @@ export abstract class Cell<T extends CellParameters = CellParameters> {
     setFlowSpeed(newFlowSpeedValue: number) {
         if (newFlowSpeedValue < 0) {
             this.flowSpeed = 0;
+        } else if (newFlowSpeedValue > 100) {
+            this.flowSpeed = 100;
+        } else {
+            this.flowSpeed = newFlowSpeedValue;
         }
-
-        this.flowSpeed = newFlowSpeedValue;
     }
 
     setFillerParents(parents: [number, number][]) {

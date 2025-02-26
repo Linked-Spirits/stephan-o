@@ -15,12 +15,12 @@ const DEFAULT: {
     isPaused: boolean
 } = {
     cycleInterval: 0.5,
-    levelIndex: 0,
+    levelIndex: 1,
     isPaused: true
 }
 
-const MIN_INTERVAL_VALUE:  number = 0;
-const MAX_INTERVAL_VALUE:  number = 1;
+const MIN_INTERVAL_VALUE: number = 0;
+const MAX_INTERVAL_VALUE: number = 1;
 
 export const GameManager = () => {
     const { levels } = jsonLevels as JSONLevels;

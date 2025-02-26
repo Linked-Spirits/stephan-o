@@ -27,7 +27,7 @@ export const CellRenderer = ({
         customClasses,
     ].join(" ")
 
-    const title = `${cell.label} [${cell.coords[0]}, ${cell.coords[1]}] | filling: ${cell.filling}, flowSpeed: ${cell.flowSpeed}`
+    const title = `${cell.label} [${cell.coords[0]}, ${cell.coords[1]}] | filling: ${cell.filling}, flowSpeed: ${cell.flowSpeed} | parents: [${cell.fillerParents.map(parent => `[${parent[0]}, ${parent[1]}]`).join(', ')}]`
 
     return (
         <div

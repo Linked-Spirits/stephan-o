@@ -7,13 +7,13 @@ import { GameState } from "@/components/game-state/GameState";
 import { Matrix } from "../matrix/Matrix";
 
 interface DoorParameters extends CellParameters {
-    isOpen: boolean;
+    isClosed: boolean;
     sensorId: number | null;
 }
 
 export class DoorCell extends Cell<DoorParameters> {
     constructor(coords: [number, number], cellType?: string) {
-        const isOpen = cellType?.startsWith("O") || false;
+        const isClosed = cellType?.startsWith("D") || false;
         const sensorId = parseInt(cellType?.split("-")[1] ?? "", 10);
 
         const sensorIdStr = isNaN(sensorId) ? "" : ` (${sensorId})`;
@@ -23,7 +23,7 @@ export class DoorCell extends Cell<DoorParameters> {
             CellType.Door,
             `Porte${sensorIdStr}`,
             {
-                isOpen,
+                isClosed,
                 sensorId: isNaN(sensorId) ? null : sensorId,
             }
         );
@@ -42,14 +42,14 @@ export class DoorCell extends Cell<DoorParameters> {
     };
 
     override render({key}: {key: string}): ReactNode {
-        const { isOpen } = this.parameters;
-        const imgSrc = isOpen ? "/open-door.svg" : "/closed-door.svg";
+        const { isClosed } = this.parameters;
+        const imgSrc = isClosed ? "/closed-door.svg" : "/open-door.svg";
     
         return (
             <CellRenderer
                 key={key}
                 cell={this}
-                customClasses={`door${isOpen ? " door--isOpen" : ""}`}
+                customClasses={`door${!isClosed ? " door--isOpen" : ""}`}
                 onClick={() => this.toggle() }
             >
                 <Image
@@ -62,14 +62,18 @@ export class DoorCell extends Cell<DoorParameters> {
         )
     }
 
+    get isClosed() {
+        return this.parameters.isClosed;
+    }
+
     get isOpen() {
-        return this.parameters.isOpen;
+        return !this.parameters.isClosed;
     }
 
     toggle() {
-        this.parameters.isOpen = !this.parameters.isOpen;
+        this.parameters.isClosed = !this.parameters.isClosed;
         
-        if (!this.isOpen) {
+        if (this.isClosed) {
             this.reset();
         }
     }

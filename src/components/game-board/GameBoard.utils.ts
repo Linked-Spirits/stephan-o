@@ -13,7 +13,7 @@ export const buildCell = (cellType: string, coords: [number, number]): Cell => {
         // "#": () => new ExitCell(cellType),
         // "!": () => new ExitCell(cellType),
         "D": () => new DoorCell(coords, cellType),
-        // "O": () => new DoorCell(cellType),
+        "O": () => new DoorCell(coords, cellType),
         // "S": () => new SensorCell(cellType),
         // "P": () => new PipeCell(cellType),
         "": () => new FullCell(coords)

@@ -16,50 +16,31 @@ const isExcludedBottomNeighbor = (neighbor: Cell): boolean => [
     neighbor.type === CellType.Door && (neighbor as DoorCell).isClosed,
 ].some(Boolean)
 
-const checkTopNeighbor = (neighbors: Neighbors<Cell>): Cell | null => {
-    const { top } = neighbors;
-
-    if (!top || isExcludedNeighbor(top)) {
+const checkNeighbor = (neighbor: Cell | null, bottomNeighbor: Cell | null = null): Cell | null => {
+    if (!neighbor || isExcludedNeighbor(neighbor)) {
         return null;
     }
 
-    return top;
-}
-
-const checkRightNeighbor = (neighbors: Neighbors<Cell>): Cell | null => {
-    const { right, bottomRight } = neighbors;
-
-    if (!right || isExcludedNeighbor(right)) {
+    if (bottomNeighbor && !isExcludedBottomNeighbor(bottomNeighbor)) {
         return null;
     }
 
-    if (bottomRight && !isExcludedBottomNeighbor(bottomRight)) {
-        return null;
-    }
-
-    return right;
-}
-
-const checkLeftNeighbor = (neighbors: Neighbors<Cell>): Cell | null => {
-    const { left, bottomLeft } = neighbors;
-
-    if (!left || isExcludedNeighbor(left)) {
-        return null;
-    }
-
-    if (bottomLeft && !isExcludedBottomNeighbor(bottomLeft)) {
-        return null;
-    }
-
-    return left;
+    return neighbor;
 }
 
 const getRelevantNeighbors = (neighbors: Neighbors<Cell>): Cell[] => {
+    const {
+        top,
+        left,
+        bottomLeft,
+        right,
+        bottomRight
+    } = neighbors
     const relevantNeighbors = []
 
-    const topNeighbor = checkTopNeighbor(neighbors);
-    const leftNeighbor = checkLeftNeighbor(neighbors);
-    const rightNeighbor = checkRightNeighbor(neighbors);
+    const topNeighbor = checkNeighbor(top);
+    const leftNeighbor = checkNeighbor(left, bottomLeft);
+    const rightNeighbor = checkNeighbor(right, bottomRight);
 
     if (topNeighbor !== null) {
         relevantNeighbors.push(topNeighbor)
@@ -138,5 +119,8 @@ export const updateFilling = (cell: Cell, matrix: Matrix<Cell>, currentCycle: nu
 }
 
 // TODO :
+// - ??? / Si on a un parent avec flowSpeed à 0, que faire ? (vidage par le bas)
+// - !!! / Si en checkant les parents, on se rend compte que la cellule courante est dans les parents du parent
+//      Alors on regarde les autres parents, si la somme de leur flowSpeed est à 0, alors on set flowSpeed à 0.
+//
 // - Utiliser disabled pour FullCell et DoorCell closed
-// - Si on a un parent avec flowSpeed à 0, que faire ? (vidage par le bas)

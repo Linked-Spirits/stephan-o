@@ -15,7 +15,7 @@ const DEFAULT: {
     isPaused: boolean
 } = {
     cycleInterval: 0.5,
-    levelIndex: 1,
+    levelIndex: 0,
     isPaused: true
 }
 

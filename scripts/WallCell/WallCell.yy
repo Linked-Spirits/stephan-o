@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"WallCell",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"WallCell",
+  "parent":{
+    "name":"Cells",
+    "path":"folders/Scripts/Cells.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

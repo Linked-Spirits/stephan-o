@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"UpdateMatrix",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"UpdateMatrix",
+  "parent":{
+    "name":"Update",
+    "path":"folders/Scripts/Update.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

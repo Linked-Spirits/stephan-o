@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"PipeFlow",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"PipeFlow",
+  "parent":{
+    "name":"Update",
+    "path":"folders/Scripts/Update.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,8 @@
+,,,source,,
+empty,empty,empty,empty,,
+empty,,,,,
+empty,empty,door-closed,empty,,
+,,,empty,,
+trap,door-open,empty,door-closed,empty,empty
+,,,,,empty
+,,,,,exit

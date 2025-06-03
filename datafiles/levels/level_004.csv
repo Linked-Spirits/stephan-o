@@ -1,0 +1,11 @@
+,source,,,,,
+,empty,door-closed,pipe-r-b-l,pipe-b-l,,
+,wall,wall,empty,pipe-t-r,pipe-r-l,pipe-b-l
+,empty,empty,door-closed,empty,wall,pipe-t-b
+,empty,wall,pipe-r-b,empty,wall,pipe-t-b
+,door-closed,wall,pipe-t-b,pipe-r-b,pipe-r-l,pipe-t-l
+pipe-r-b,pipe-t-r-l,pipe-b-l,pipe-t-b,pipe-t-b,,
+pipe-t-b,,pipe-t-b,pipe-t-b,pipe-t-r,pipe-r-l,pipe-b-l
+pipe-t-r,pipe-b-l,pipe-t-b,door-open,pipe-b-l,,pipe-t-b
+pipe-r-b,pipe-t-l,pipe-t-b,,pipe-t-b,,pipe-t-b
+trap,,exit,,trap,,trap

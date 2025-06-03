@@ -1,0 +1,11 @@
+,,source,,,,,,,
+,,empty,,,,,,,
+,,pipe-t-r-b,pipe-r-l,pipe-r-b-l,empty,door-closed/2,,,
+,,empty,,empty,,empty,,,
+,,door-open/3,,sensor/1,,sensor/1,,,
+,,empty,,,,door-closed,,,
+sensor/2,,empty,empty,door-closed/1,empty,empty,,,
+pipe-t-b,,,,pipe-t-b,,,,pipe-r-b,sensor/3
+pipe-t-r-b,door-closed/3,door-closed/1,empty,pipe-t-r-b-l,pipe-r-l,pipe-r-l,pipe-r-l,pipe-t-l,
+door-closed/1,,,,empty,,,,,
+exit,,,,empty,empty,sensor/1,,,

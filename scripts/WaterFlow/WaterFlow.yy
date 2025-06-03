@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"WaterFlow",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"WaterFlow",
+  "parent":{
+    "name":"Update",
+    "path":"folders/Scripts/Update.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"HandleClick",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"HandleClick",
+  "parent":{
+    "name":"Graphics",
+    "path":"folders/Scripts/Graphics.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

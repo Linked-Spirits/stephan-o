@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"PipeCell",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"PipeCell",
+  "parent":{
+    "name":"Cells",
+    "path":"folders/Scripts/Cells.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,17 @@
+# GameMaker temporary files
+*.yyz
+*.yymps
+*.log
+.idea/
+backup/
+.bak/
+bin/
+cache/
+*.tmp
+*.ldb
+*.sublime-project
+*.sublime-workspace
+
+# GameMaker build output
+/build/
+output/

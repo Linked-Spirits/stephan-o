@@ -1,0 +1,24 @@
+{
+  "FolderOrderSettings":[
+    {"name":"Cells","order":20,"path":"folders/Scripts/Cells.yy",},
+    {"name":"Game","order":24,"path":"folders/Scripts/Game.yy",},
+    {"name":"Graphics","order":21,"path":"folders/Scripts/Graphics.yy",},
+    {"name":"Update","order":22,"path":"folders/Scripts/Update.yy",},
+    {"name":"Utils","order":23,"path":"folders/Scripts/Utils.yy",},
+  ],
+  "ResourceOrderSettings":[
+    {"name":"Debug","order":1,"path":"scripts/Debug/Debug.yy",},
+    {"name":"DoorCell","order":1,"path":"scripts/DoorCell/DoorCell.yy",},
+    {"name":"EmptyCell","order":2,"path":"scripts/EmptyCell/EmptyCell.yy",},
+    {"name":"ExitCell","order":3,"path":"scripts/ExitCell/ExitCell.yy",},
+    {"name":"globals","order":6,"path":"scripts/globals/globals.yy",},
+    {"name":"HandleClick","order":1,"path":"scripts/HandleClick/HandleClick.yy",},
+    {"name":"HandleHover","order":2,"path":"scripts/HandleHover/HandleHover.yy",},
+    {"name":"LoadLevel","order":2,"path":"scripts/LoadLevel/LoadLevel.yy",},
+    {"name":"PipeCell","order":4,"path":"scripts/PipeCell/PipeCell.yy",},
+    {"name":"SourceCell","order":5,"path":"scripts/SourceCell/SourceCell.yy",},
+    {"name":"UpdateMatrix","order":1,"path":"scripts/UpdateMatrix/UpdateMatrix.yy",},
+    {"name":"WallCell","order":6,"path":"scripts/WallCell/WallCell.yy",},
+    {"name":"WaterFlow","order":2,"path":"scripts/WaterFlow/WaterFlow.yy",},
+  ],
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"SourceCell",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SourceCell",
+  "parent":{
+    "name":"Cells",
+    "path":"folders/Scripts/Cells.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

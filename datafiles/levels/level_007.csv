@@ -1,0 +1,17 @@
+,,source/35,door-open/1,empty,empty,empty,empty,empty,sensor/1,,,,,
+,,,,,,,,,empty,,,,,
+,,,,,empty,empty,empty,empty,empty,door-closed/2,pipe-r-l,pipe-r-l,pipe-r-l,pipe-b-l
+,,,,,empty,,,,,,,,,pipe-t-b
+,,,,,empty,empty,empty,empty,empty,empty,empty,empty,empty,pipe-t-b
+,,,,,,,,,,,,,empty,pipe-t-b
+,,,,,,empty,empty,empty,empty,empty,empty,empty,empty,pipe-t-b
+,,,,,,empty,,,,,,,,pipe-t-b
+,,,,,,empty,empty,empty,empty,empty,empty,,,pipe-t-b
+,,,,,,,,,,,empty,,,pipe-t-b
+,,,,,,,empty,empty,empty,empty,empty,,,pipe-t-b
+,,,,,,,empty,,,,,,,pipe-t-b
+,,,,,,,empty,empty,empty,empty,,,,pipe-t-b
+,,,,,,,,,,empty,,,,pipe-t-b
+,,,,,,,,empty,empty,empty,,,,pipe-t-b
+,,,,,,,,empty,,,,,,pipe-t-b
+,,,,,,,,empty,empty,empty,empty,empty,empty,sensor/2

@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"mechanisms",
-    "path":"folders/Sprites/mechanisms.yy",
+    "name":"exit",
+    "path":"folders/Sprites/mechanisms/exit.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

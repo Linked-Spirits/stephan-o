@@ -1,17 +1,40 @@
 function DoorCell(
 	_coords,
 	_isOpen = false,
-	_sensorId = undefined
+	_sensorId = undefined,
+	_doorKind = undefined
 ) : Cell(
 	_coords,
 	"door"
 ) constructor {
 	isOpen = _isOpen;
 	sensorId = _sensorId;
+	doorKind = _doorKind;
+	
+	toggleCount = 0;
+	toggledRemotely = false;
+
+	canToggle = function() {
+		return (
+			doorKind != "remote" && (
+				doorKind != "once" ||
+				toggleCount == 0
+			) ||
+			doorKind == "remote" && toggledRemotely
+		);
+	};
 	
 	clone = function() {
-		var cloned = new DoorCell(coords, isOpen, sensorId);
+		var cloned = new DoorCell(
+			coords,
+			isOpen,
+			sensorId,
+			doorKind
+		);
 		cloneProperties(cloned);
+		
+		cloned.toggleCount = toggleCount;
+		cloned.toggledRemotely = toggledRemotely;
 
 		return cloned;
 	}
@@ -21,7 +44,7 @@ function DoorCell(
 			sensorId != undefined &&
 			array_contains(global.triggeredSensors, sensorId)
 		) {
-			toggleDoor();
+			toggleDoor(true);
 		}
 		
 		if (isOpen) {
@@ -31,28 +54,34 @@ function DoorCell(
 		}
 	}
 	
-	toggleDoor = function() {
+	toggleDoor = function(remotely = false) {
+		toggledRemotely = remotely;
+
+		if (!canToggle()) {
+			return;
+		}
+
 		isOpen = !isOpen;
+		toggleCount++;	
 	}
 	
 	draw = function(x, y, size, isHovered = false, isClicked = false) {
 		global.drawCellBackground(x, y, size);
 
+		var isDoorClicked = isClicked && canToggle();
+		var isCurrentlyOpen = isOpen ^ isDoorClicked;
+		var doorSprite = getDoorSprite(doorKind, isCurrentlyOpen, filling);
 		var scale = getCellScale(size);
-		var spriteToDraw;
-		
-		var isCurrentlyOpen = isOpen ^ isClicked;
 
-		if (isCurrentlyOpen) {
-			spriteToDraw = (filling > 0) ? spr_door_open_full : spr_door_open;
-		} else {
-		    spriteToDraw = spr_door_closed;
-		}
-
-		drawSprite(spriteToDraw, size, x, y, scale);
+		drawSprite(doorSprite, size, x, y, scale);
 		
-		if (isHovered)  {
-			drawSprite(isCurrentlyOpen ? spr_lock : spr_unlock, size, x, y, scale);
+		if (
+			isHovered &&
+			doorKind != "remote" &&
+			canToggle()
+		)  {
+			var doorActionSprite = getDoorActionSprite(doorKind, isCurrentlyOpen);
+			drawSprite(doorActionSprite, size, x, y, scale);
 		}
 	}
 };

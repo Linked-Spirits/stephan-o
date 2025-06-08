@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"mechanisms",
-    "path":"folders/Sprites/mechanisms.yy",
+    "name":"source",
+    "path":"folders/Sprites/mechanisms/source.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -4,13 +4,15 @@ for (var i = 0; i < matrix.rows; i++) {
 		var isHovered = hoveredCell != undefined && hoveredCell == cell;
 		var isClicked = clickedCell != undefined && clickedCell == cell;
 		
-		cell.draw(
-			j * cellSize,
-			i * cellSize,
-			cellSize,
-			isHovered,
-			isClicked
-		);
+		if (cell != undefined) {
+            cell.draw(
+                j * cellSize,
+                i * cellSize,
+                cellSize,
+                isHovered,
+                isClicked
+            );
+        }
     }
 }
 

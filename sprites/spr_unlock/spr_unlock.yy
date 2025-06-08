@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"actions",
-    "path":"folders/Sprites/mechanisms/actions.yy",
+    "name":"doors",
+    "path":"folders/Sprites/mechanisms/doors.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

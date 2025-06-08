@@ -44,8 +44,8 @@ function loadMatrix(levelId) {
     return csvData;
 }
 
-function getPipeConnections(pipeType) {
-	switch (pipeType) {
+function getPipeConnections(cellType) {
+	switch (cellType) {
 		case "pipe-t-r": return {top: true, right: true, bottom: false, left: false};
 		case "pipe-t-b": return {top: true, right: false, bottom: true, left: false};
 		case "pipe-t-l": return {top: true, right: false, bottom: false, left: true};
@@ -61,14 +61,36 @@ function getPipeConnections(pipeType) {
 	}
 }
 
-function buildPipeCell(pipeType, coords) {
-	var pipeConnections= getPipeConnections(pipeType);
+function buildPipeCell(cellType, coords) {
+	var pipeConnections= getPipeConnections(cellType);
 
 	if (pipeConnections != undefined) {
 		return new PipeCell(coords, pipeConnections);
 	}
 
 	return new WallCell(coords);
+}
+
+function buildDoorCell(cellType, arg, coords) {
+	show_debug_message(cellType);
+	show_debug_message(arg);
+	show_debug_message(coords);
+	show_debug_message("\n");
+
+	switch (cellType) {
+		case "door-closed":
+			return new DoorCell(coords, false, arg, "classic"); // arg = sensorId
+		case "door-open":
+			return new DoorCell(coords, true, arg, "classic");  // arg = sensorId
+		case "door-once-closed":
+			return new DoorCell(coords, false, arg, "once"); // arg = sensorId
+		case "door-once-open":
+			return new DoorCell(coords, true, arg, "once");  // arg = sensorId
+		case "door-remote-closed":
+			return new DoorCell(coords, false, arg, "remote"); // arg = sensorId
+		case "door-remote-open":
+			return new DoorCell(coords, true, arg, "remote");  // arg = sensorId
+	}
 }
 
 function buildCell(cellType, coords) {
@@ -83,17 +105,16 @@ function buildCell(cellType, coords) {
 			return new EmptyCell(coords);
 		case "sensor":
 			return new EmptyCell(coords, arg); // arg = sensorId
-		case "door-closed":
-			return new DoorCell(coords, false, arg); // arg = sensorId
-		case "door-open":
-			return new DoorCell(coords, true, arg);  // arg = sensorId
 		case "exit":
 			return new ExitCell(coords);
 		case "trap":
 			return new ExitCell(coords, true);
 		default:
-			if (string_starts_with(cellType, "pipe")) {
-				return buildPipeCell(cellType, coords);
+			if (string_starts_with(baseType, "door")) {
+				return buildDoorCell(baseType, arg, coords);
+			}
+			if (string_starts_with(baseType, "pipe")) {
+				return buildPipeCell(baseType, coords);
 			}
 			return new WallCell(coords);
 	}

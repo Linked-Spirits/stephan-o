@@ -26,10 +26,10 @@ function checkPipe(cell, pipeDirection, pipe) {
 		!pipe.isEmpty() && 
 		!isInFillerParents(cell, pipe.fillerParents) &&
 		(
-			(pipeDirection == "top" && pipe.directions.bottom != undefined) ||
-			(pipeDirection == "bottom" && pipe.directions.top != undefined) ||
-			(pipeDirection == "right" && pipe.directions.left != undefined) ||
-			(pipeDirection == "left" && pipe.directions.right != undefined)
+			(pipeDirection == "top" && pipe.directions.bottom) ||
+			(pipeDirection == "bottom" && pipe.directions.top) ||
+			(pipeDirection == "right" && pipe.directions.left) ||
+			(pipeDirection == "left" && pipe.directions.right)
 		)
 	) {
 		return pipe;

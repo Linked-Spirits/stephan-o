@@ -74,6 +74,7 @@
     {"id":{"name":"GraphicsUtils","path":"scripts/GraphicsUtils/GraphicsUtils.yy",},},
     {"id":{"name":"HandleClick","path":"scripts/HandleClick/HandleClick.yy",},},
     {"id":{"name":"HandleHover","path":"scripts/HandleHover/HandleHover.yy",},},
+    {"id":{"name":"levelSelector","path":"scripts/levelSelector/levelSelector.yy",},},
     {"id":{"name":"LoadLevel","path":"scripts/LoadLevel/LoadLevel.yy",},},
     {"id":{"name":"Matrix","path":"scripts/Matrix/Matrix.yy",},},
     {"id":{"name":"PipeCell","path":"scripts/PipeCell/PipeCell.yy",},},
